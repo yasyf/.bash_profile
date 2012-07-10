@@ -1,5 +1,8 @@
 #!/bin/bash
 
 complete -W "NSGlobalDomain" defaults
-complete -o "nospace" -W "$(ls /Applications | grep ".app" | sed 's/.app//' |  sed 's/ /\\ /g' | sed 's/.*/\"&\"/')"+"$(cd /Applications; ls | grep -v .app | grep -v .scpt | tail -n+5 |  sed 's/ /\\ /g' | xargs ls | grep .app | sed 's/.app//' |  sed 's/ /\\ /g' | sed 's/.*/\"&\"/')" killall
+complete -o "nospace" -W "$(ls /Applications | grep ".app" | sed 's/.app//' |  sed 's/ /\\ /g' | sed 's/.*/\"&\"/')"+"$(cd /Applications; ls | grep -v .app | grep -v .scpt | tail -n+5 |  sed 's/ /\\ /g' | xargs ls | grep .app | sed 's/.app//' |  sed 's/ /\\ /g' | sed 's/.*/\"&\"/')"+"Finder"+"SystemUIServer" killall
 complete -W "$(echo `cat ~/.ssh/known_hosts | cut -f 1 -d ' ' | sed -e s/,.*//g | uniq | grep -v "\["`;)" ssh
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+complete -W  "$(ls $DIR | grep -v README | grep -v git | tail -n +4 | tr "\n" " ")" bp

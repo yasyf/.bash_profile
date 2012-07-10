@@ -3,6 +3,9 @@
 export PATH="/usr/local/Cellar/coreutils/8.17/libexec/gnubin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/usr/X11/bin"
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US"
+export LC_CTYPE="en_US.UTF-8"
+export LANGUAGE="en"
+export FTP_PASSIVE=1
 export EDITOR="mate -w"
 export GIT_EDITOR="mate -wl1"
 export TEXEDIT='mate -w -l %d "%s"'
@@ -15,5 +18,9 @@ export HISTCONTROL=ignoredups
 # Make some commands not show up in history
 export HISTIGNORE="ls:ls *:cd:cd -:pwd;exit:date:* --help"
 
+# readline config
+export INPUTRC="~/.inputrc"
+
 unset http_proxy
 unset https_proxy
+unset MAILCHECK

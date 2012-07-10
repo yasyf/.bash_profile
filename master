@@ -1,6 +1,13 @@
 #!/bin/bash
+if [[ $- != *i* ]] ; then
+	# Shell is non-interactive.  Be done now!
+	return
+fi
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 files="$(ls $DIR | grep -v master | grep -v README | grep -v git)"
 for f in $files; do
 	source $DIR/$f
 done
+
+unset DIR
+unset files

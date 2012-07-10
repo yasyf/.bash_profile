@@ -23,3 +23,26 @@ function json() {
 		python -mjson.tool <<< "$*" | pygmentize -l javascript
 	fi
 }
+function dataurl() {
+	echo "data:image/${1##*.};base64,$(openssl base64 -in "$1")" | tr -d '\n'
+}
+function mail_local()
+{
+	open "mailto:$1?subject=$2&body=$3"
+}
+function mail()
+{
+	if [ "$1" ]; then local to=($1); else echo "to address required";return; fi
+	if [ "$2" ]; then local subject=($2); else echo "blank subject assumed";local subject=""; fi
+	if [ -p /dev/stdin ]; then local body=($(< /dev/stdin)); local file=$3; elif [ "$3" ]; then local body=$3; else echo "blank body assumed";local body=""; fi
+	if [ "$4" ]; then local file=$4; fi
+	echo $file
+curl -v -s -k --user api:key-0nr13p-uhgfajhvo1580eeeva017kma8 \
+	    https://api.mailgun.net/v2/yasyfmohamedali.mailgun.org/messages \
+	    -F from="Yasyf Mohamedali <$(whoami)@$(hostname -s)>" \
+	    -F to="$to" \
+	    -F subject="$subject" \
+	    -F text="$body" \
+	    -F attachment=@"$(if [ "$file" ]; then echo $file; fi)"
+}
+
