@@ -1,6 +1,5 @@
 #!/bin/bash
 
-alias bp="mate ~/.bash_profile"
 alias flush='dscacheutil -flushcache'
 alias ls='ls -Ga'
 alias push="git push -u origin master"

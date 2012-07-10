@@ -1,2 +1,20 @@
 #!/bin/bash
 zap() { open -a AppZapper /Applications/"${1}".app; }
+bp()
+{
+	local DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+	local files="$(ls $DIR | grep -v master | grep -v README | grep -v git | tail -n +3)"
+	
+if [[ $1 && -f "$DIR/$1" ]]; then
+	
+	mate $DIR/$1
+elif [[ $1 == "f" ]]; then
+	pf $DIR
+else
+	mate ~/.bash_profile
+fi
+	
+
+		
+
+}
