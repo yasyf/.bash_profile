@@ -1,0 +1,15 @@
+#!/bin/bash
+
+alias bp="mate ~/.bash_profile"
+alias flush='dscacheutil -flushcache'
+alias ls='ls -Ga'
+alias push="git push -u origin master"
+alias commit="git commit -a -m "
+alias http='open x-choosy://open/http://localhost:8080;python -m SimpleHTTPServer 8080'
+alias img='sips'
+alias ts2dvd="mkisofs -f -dvd-video -udf -V DVD_VIDEO -o ~/Desktop/DVD_VIDEO.iso"
+alias FINAL="cd /Users/yasyf/Dropbox/Public/FINAL"
+alias play="cd /Users/yasyf/Sites/testnew/play/"
+alias m="mate"
+alias pf="open ./ -a Path\ Finder"
+alias vpn="ssh root@vpn.yasyf.com"

@@ -1,0 +1,6 @@
+#!/bin/bash
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+files="$(ls $DIR | grep -v master)"
+for f in $files; do
+	source $DIR/$f
+done
