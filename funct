@@ -1,6 +1,6 @@
 #!/bin/bash
-zap() { open -a AppZapper /Applications/"${1}".app; }
-bp()
+function zap() { open -a AppZapper /Applications/"${1}".app; }
+function bp()
 {
 	local DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 	local files="$(ls $DIR | grep -v master | grep -v README | grep -v git | tail -n +3)"
@@ -13,8 +13,13 @@ elif [[ $1 == "f" ]]; then
 else
 	mate ~/.bash_profile
 fi
-	
-
-		
-
+}
+function json() {
+	if [ -p /dev/stdin ]; then
+		# piping, e.g. `echo '{"foo":42}' | json`
+		python -mjson.tool | pygmentize -l javascript
+	else
+		# e.g. `json '{"foo":42}'`
+		python -mjson.tool <<< "$*" | pygmentize -l javascript
+	fi
 }

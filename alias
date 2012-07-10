@@ -13,3 +13,10 @@ alias m="mate"
 alias pf="open ./ -a Path\ Finder"
 alias vpn="ssh root@vpn.yasyf.com"
 alias bpf="cd /Users/yasyf/Dropbox/Documents/bash/"
+alias grep='grep --color=auto'
+alias ..="cd .."
+alias whois="whois -h whois-servers.net"
+alias c="tr -d '\n' | pbcopy"
+alias copy="c"
+alias rot13='tr a-zA-Z n-za-mN-ZA-M'
+alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
