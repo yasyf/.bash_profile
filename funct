@@ -32,17 +32,80 @@ function mail_local()
 }
 function mail()
 {
-	if [ "$1" ]; then local to=($1); else echo "to address required";return; fi
-	if [ "$2" ]; then local subject=($2); else echo "blank subject assumed";local subject=""; fi
-	if [ -p /dev/stdin ]; then local body=($(< /dev/stdin)); local file=$3; elif [ "$3" ]; then local body=$3; else echo "blank body assumed";local body=""; fi
-	if [ "$4" ]; then local file=$4; fi
-	echo $file
+	show_usage()
+	{
+		echo "Usage: mail -t to_address -s subject -b body -f filename"
+
+	}
+	
+	MINARGS=3
+	case $1 in
+		"-h"|"--help") show_usage; return 1; ;;
+	esac
+	
+	ARGC=$#
+	if [[ $ARGC -lt $MINARGS ]] ; then
+	 echo "Too few arguments given (only attachment is optional)"
+	 echo
+	 show_usage
+	return 1;
+	fi
+	
+
+
+  while getopts "t:s:b:f:a:" optname
+    do
+      case "$optname" in
+        "t")
+			local to=($OPTARG)    
+          ;;
+		"s")
+			local subject=("$OPTARG")          
+	      ;;
+        "b")
+			local body=("$OPTARG")          
+          ;;
+		"f")
+			local file=($OPTARG)          
+	      ;;
+		"a")
+			local file=($OPTARG)          
+	      ;;
+
+        "?")
+          echo "Unknown option $OPTARG"
+          ;;
+        ":")
+          echo "No argument value for option $OPTARG"
+          ;;
+        *)
+        # Should not occur
+          echo "Unknown error while processing options"
+			show_usage;return 1;
+          ;;
+      esac
+    done
+	 
+	if [ "$to" ]; then echo ""; else echo "to address required";show_usage;return 1; fi
+		if [ "$subject" ]; then echo ""; else echo "subject required";show_usage;return 1; fi
+		if [ -p /dev/stdin ]; then local body=($(< /dev/stdin));elif [ "$body" ]; then echo ""; else echo "body required";show_usage;return 1; fi
+
 curl -v -s -k --user api:key-0nr13p-uhgfajhvo1580eeeva017kma8 \
 	    https://api.mailgun.net/v2/yasyfmohamedali.mailgun.org/messages \
-	    -F from="Yasyf Mohamedali <$(whoami)@$(hostname -s)>" \
+	    -F from="Yasyf Mohamedali <$(whoami)@$(hostname)>" \
 	    -F to="$to" \
 	    -F subject="$subject" \
 	    -F text="$body" \
-	    -F attachment=@"$(if [ "$file" ]; then echo $file; fi)"
+	    -F attachment="$(if [ "$file" ]; then echo @$file; fi)"
+	
+	unset to
+	unset subject
+	unset body
+	unset file
+	unset optname
+	unset OPTARG
+	unset MINARGS
+	unset ARGC
+	return 0;
 }
 
