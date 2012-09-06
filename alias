@@ -20,12 +20,15 @@ alias whois="whois -h whois-servers.net"
 alias c="tr -d '\n' | pbcopy"
 alias copy="c"
 alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
+alias vpn="ssh root@vpn.yasyf.com"
+alias terminal-notifier="/usr/bin/terminal-notifier.app/Contents/MacOS/terminal-notifier -message"
+alias prune="https://en.gravatar.com/userimage/19370613/5b27339aaee4d9c5ec6c3c6b71279563.jpg?size=200"
 
 
 	if  (uname -a | grep Air > /dev/null 2>&1) ; then
-		SITEBASE="~/Dropbox/Public/Sites/"
+		SITEBASE="~/Dropbox/Public/Sites/";
 	elif (uname -a | grep Pro > /dev/null 2>&1) ; then
-		SITEBASE="~/Sites"
+		SITEBASE="~/Sites";
 	fi
 
 alias sites="cd $SITEBASE"

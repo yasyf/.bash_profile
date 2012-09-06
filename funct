@@ -30,6 +30,21 @@ function mail_local()
 {
 	open "mailto:$1?subject=$2&body=$3"
 }
+function ocr()
+{
+if [[ $1 ]]; then
+	if [[ $2 ]]; then
+		/usr/bin/takocr "$1" | tail -n +2 > "$2"
+		mate "$2"
+	else
+		
+		/usr/bin/takocr "$1" | tail -n +2 > ~/Desktop/"`basename "$1"`.ocr.txt" 
+		mate ~/Desktop/"`basename "$1"`.ocr.txt" 
+	fi 
+else
+	echo "Usage: ocr input.img output.html"
+fi
+}
 function mail()
 {
 	show_usage()
