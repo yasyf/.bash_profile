@@ -34,16 +34,16 @@ function ocr()
 {
 	#need takocr installed
 if [[ $1 ]]; then
-	if [[ $2 ]]; then
-		/usr/bin/takocr "$1" | tail -n +2 > "$2"
-		mate "$2"
-	else
-		
-		/usr/bin/takocr "$1" | tail -n +2 > ~/Desktop/"`basename "$1"`.ocr.txt" 
-		mate ~/Desktop/"`basename "$1"`.ocr.txt" 
-	fi 
+	cd /tmp
+convert -density 200 -units PixelsPerInch -type Grayscale +compress "$1" "tmp.tif"		
+		tesseract tmp.tif tmp > /dev/null 2>&1
+		TEXT=`cat tmp.txt`
+		rm tmp.txt
+		rm tmp.tif
+		echo $TEXT | pbcopy 
+		echo $TEXT
 else
-	echo "Usage: ocr input.img output.html"
+	echo "Usage: ocr input.img"
 fi
 }
 
