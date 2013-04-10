@@ -1,5 +1,10 @@
 #!/bin/bash
 function zap() { open -a AppZapper /Applications/"${1}".app; }
+function public() { 
+NAME=$(echo "$1" | sed -e 's/ /_/g' | sed -e "s/'//g" | xargs basename)
+ln -s "$1" ~/Dropbox/Public/Files/$NAME
+
+ }
 function bp()
 {
 	local DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -42,8 +47,18 @@ convert -density 200 -units PixelsPerInch -type Grayscale +compress "$1" "tmp.ti
 		rm tmp.tif
 		echo $TEXT | pbcopy 
 		echo $TEXT
+		cd ~
 else
-	echo "Usage: ocr input.img"
+	#echo "Usage: ocr input.img"
+		cd /tmp
+		convert -density 200 -units PixelsPerInch -type Grayscale +compress "/Users/yasyf/Dropbox/Public/Screenshots/`ls -t /Users/yasyf/Dropbox/Public/Screenshots | head -2 | tail -1`" 	"tmp.tif"	
+			tesseract tmp.tif tmp > /dev/null 2>&1
+			TEXT=`cat tmp.txt`
+			rm tmp.txt
+			rm tmp.tif
+			echo $TEXT | pbcopy 
+			echo $TEXT
+			cd ~
 fi
 }
 

@@ -25,7 +25,8 @@ alias terminal-notifier="/usr/bin/terminal-notifier.app/Contents/MacOS/terminal-
 alias prune="https://en.gravatar.com/userimage/19370613/5b27339aaee4d9c5ec6c3c6b71279563.jpg?size=200"
 alias redir='curl -s -o /dev/null -I -w "HTTP_CODE: %{http_code}\nREDIRECT_URL: %{redirect_url}\n"'
 alias checkgit="find ~ -type d -name .git | while read gitfolder;do echo $gitfolder; cd $gitfolder; cd ..; git --git-dir=$gitfolder status; push; done | mate"
-
+alias rand="uuidgen"
+alias pbgist="pbpaste | gist | xargs short | pbcopy"
 
 	if  (uname -a | grep Air > /dev/null 2>&1) ; then
 		SITEBASE="~/Dropbox/Public/Sites/";
