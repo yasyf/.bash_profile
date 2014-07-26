@@ -3,13 +3,12 @@
 alias flush='dscacheutil -flushcache'
 alias ls='ls -Ga'
 alias push="git push -u origin master"
+alias hpush="git push heroku master"
 alias commit="git commit -a -m "
-alias http='open x-choosy://open/http://localhost:8080;python -m SimpleHTTPServer 8080'
+alias http='python -m SimpleHTTPServer'
 alias img='sips'
 alias ts2dvd="mkisofs -f -dvd-video -udf -V DVD_VIDEO -o ~/Desktop/DVD_VIDEO.iso"
-alias FINAL="cd /Users/yasyf/Dropbox/Public/FINAL"
-alias play="cd /Users/yasyf/Sites/testnew/play/"
-alias m="mate"
+alias s="subl"
 alias pf="open ./ -a Path\ Finder"
 alias f="open ./ -a Finder"
 alias vpn="ssh root@vpn.yasyf.com"
@@ -19,27 +18,18 @@ alias ..="cd .."
 alias whois="whois -h whois-servers.net"
 alias c="tr -d '\n' | pbcopy"
 alias copy="c"
-alias urlencode="perl -MURI::Escape -e 'print uri_escape($ARGV[0]);'"
 alias mail="/usr/bin/email"
 alias terminal-notifier="/usr/bin/terminal-notifier.app/Contents/MacOS/terminal-notifier -message"
-alias prune="https://en.gravatar.com/userimage/19370613/5b27339aaee4d9c5ec6c3c6b71279563.jpg?size=200"
 alias redir='curl -s -o /dev/null -I -w "HTTP_CODE: %{http_code}\nREDIRECT_URL: %{redirect_url}\n"'
 alias checkgit="find ~ -type d -name .git | while read gitfolder;do echo $gitfolder; cd $gitfolder; cd ..; git --git-dir=$gitfolder status; push; done | mate"
 alias rand="uuidgen"
 alias pbgist="pbpaste | gist | xargs short | pbcopy"
-
-	if  (uname -a | grep Air > /dev/null 2>&1) ; then
-		SITEBASE="~/Dropbox/Public/Sites/";
-	elif (uname -a | grep Pro > /dev/null 2>&1) ; then
-		SITEBASE="~/Sites";
-	fi
-
-alias sites="cd $SITEBASE"
-alias donate="cd $SITEBASE/donate"
-alias testnew="cd $SITEBASE/testnew"
-alias higg="cd $SITEBASE/Higginson"
-alias twocando="cd $SITEBASE/TwoCanDoBooks"
-alias vanisland="cd $SITEBASE/VanIsland\ Sites"
-alias familyemail="cd $SITEBASE/FamilyEmails"
-
-unset SITEBASE
+alias lsusb="system_profiler SPUSBDataType"
+alias speedtest="/Users/yasyf/Dropbox/Documents/Python\ Play/speedtest.py  --simple"
+alias cat='pygmentize -O style=monokai -f console256 -g'
+alias ccat='/bin/cat'
+alias pbsms="pebble sms 'MacBook Pro'"
+alias pbping="pebble ping"
+alias sudo="sudo "
+alias h="howdoi"
+alias kinit="kinit -k -t ~/.yasyf.keytab"

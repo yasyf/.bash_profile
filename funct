@@ -1,6 +1,18 @@
 #!/bin/bash
+function whiteboard_convert(){
+	convert "$1" -morphology Convolve DoG:15,100,0 -negate -normalize -blur 0x1 -channel RBG -level 60%,91%,0.1 "$2"
+}
+function rsyncb(){
+rsync -u -r $1 $2
+rsync -u -r $2 $1
+}
+function gitpatch() { curl "$1.patch" | git apply -; }
 function zap() { open -a AppZapper /Applications/"${1}".app; }
-function public() { 
+function mitfinger() { finger $1@mitdir.mit.edu; }
+function ql() { qlmanage -px  $1 > /dev/null 2>&1; }
+function mate() { /usr/local/bin/subl $1; }
+function urlencode() { echo $(php -r "echo rawurlencode('$1');"); }
+function public() {
 NAME=$(echo "$1" | sed -e 's/ /_/g' | sed -e "s/'//g" | xargs basename)
 ln -s "$1" ~/Dropbox/Public/Files/$NAME
 
@@ -9,9 +21,9 @@ function bp()
 {
 	local DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 	local files="$(ls $DIR | grep -v master | grep -v README | grep -v git | tail -n +3)"
-	
+
 if [[ $1 && -f "$DIR/$1" ]]; then
-	
+
 	mate $DIR/$1
 elif [[ $1 == "f" ]]; then
 	pf $DIR
@@ -37,28 +49,28 @@ function mail_local()
 }
 function ocr()
 {
-	#need takocr installed
+#need takocr installed
 if [[ $1 ]]; then
 	cd /tmp
-convert -density 200 -units PixelsPerInch -type Grayscale +compress "$1" "tmp.tif"		
-		tesseract tmp.tif tmp > /dev/null 2>&1
-		TEXT=`cat tmp.txt`
-		rm tmp.txt
-		rm tmp.tif
-		echo $TEXT | pbcopy 
-		echo $TEXT
-		cd ~
+	convert -density 200 -units PixelsPerInch -type Grayscale +compress "$1" "tmp.tif"
+	tesseract tmp.tif tmp > /dev/null 2>&1
+	TEXT=`cat tmp.txt`
+	rm tmp.txt
+	rm tmp.tif
+	echo $TEXT | pbcopy
+	echo $TEXT
+	cd ~
 else
 	#echo "Usage: ocr input.img"
-		cd /tmp
-		convert -density 200 -units PixelsPerInch -type Grayscale +compress "/Users/yasyf/Dropbox/Public/Screenshots/`ls -t /Users/yasyf/Dropbox/Public/Screenshots | head -2 | tail -1`" 	"tmp.tif"	
-			tesseract tmp.tif tmp > /dev/null 2>&1
-			TEXT=`cat tmp.txt`
-			rm tmp.txt
-			rm tmp.tif
-			echo $TEXT | pbcopy 
-			echo $TEXT
-			cd ~
+	cd /tmp
+	convert -density 200 -units PixelsPerInch -type Grayscale +compress "/Users/yasyf/Dropbox/Public/Screenshots/`ls -t /Users/yasyf/Dropbox/Public/Screenshots | head -2 | tail -1`" 	"tmp.tif"
+	tesseract tmp.tif tmp > /dev/null 2>&1
+	TEXT=`cat tmp.txt`
+	rm tmp.txt
+	rm tmp.tif
+	echo $TEXT | pbcopy
+	echo $TEXT
+	cd ~
 fi
 }
 
