@@ -1,7 +1,8 @@
 #!/bin/bash
 function doubleohfive() {
 	cd /Users/yasyf/Dropbox\ \(MIT\)/Fall\ 2014/6.005
-	git clone ssh://yasyf@athena.dialup.mit.edu/mit/6.005/git/fa14/psets/$1/yasyf.git $1
+	git clone ssh://yasyf@athena.dialup.mit.edu/mit/6.005/git/fa14/psets/ps$1/yasyf.git ps$1
+	pf ps$1
 }
 function whiteboard_convert(){
 	convert "$1" -morphology Convolve DoG:15,100,0 -negate -normalize -blur 0x1 -channel RBG -level 60%,91%,0.1 "$2"
