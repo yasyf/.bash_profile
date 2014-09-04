@@ -25,3 +25,5 @@ unset DYLD_LIBRARY_PATH
 unset http_proxy
 unset https_proxy
 unset MAILCHECK
+
+kinit
