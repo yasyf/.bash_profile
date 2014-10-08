@@ -38,15 +38,6 @@ else
     RESET="\033[m"
 fi
 
-export BLACK
-export MAGENTA
-export ORANGE
-export GREEN
-export PURPLE
-export WHITE
-export BOLD
-export RESET
-
 # Git branch details
 function get_git_dirty() {
     [[ $(git status 2> /dev/null | tail -n1) != *"working directory clean"* ]] && echo "*"
@@ -59,5 +50,7 @@ function get_git_branch() {
 # (http://en.wikipedia.org/wiki/Unicode_symbols)
 symbol="⚡ "
 
-export PS1="\033]0;${PWD##*/}\007\[${BOLD}${MAGENTA}\]\u \[$WHITE\]in \[$GREEN\]\w\[$WHITE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")\[$PURPLE\]\$(get_git_branch)\[$WHITE\]\n$symbol\[$RESET\]"
-export PS2="\[$ORANGE\]→ \[$RESET\]"
+PROMPT_COMMAND='echo -n -e "\033]0;${PWD##*/}\007"'
+
+PS1="\[${BOLD}${MAGENTA}\]\u \[$WHITE\]in \[$GREEN\]\w\[$WHITE\]\$([[ -n \$(`which git` branch 2> /dev/null) ]] && echo \" on \")\[$PURPLE\]\$(get_git_branch)\[$WHITE\]\n$symbol\[$RESET\]"
+PS2="\[$ORANGE\]→ \[$RESET\]"
