@@ -1,5 +1,7 @@
 #!/bin/bash
 
+eval "$(hub alias -s)"
+
 alias flush='dscacheutil -flushcache'
 alias ls='ls -Ga'
 alias push="git push -u origin master"
@@ -23,13 +25,15 @@ alias terminal-notifier="/usr/bin/terminal-notifier.app/Contents/MacOS/terminal-
 alias redir='curl -s -o /dev/null -I -w "HTTP_CODE: %{http_code}\nREDIRECT_URL: %{redirect_url}\n"'
 alias checkgit="find ~ -type d -name .git | while read gitfolder;do echo $gitfolder; cd $gitfolder; cd ..; git --git-dir=$gitfolder status; push; done | mate"
 alias rand="uuidgen"
-alias pbgist="pbpaste | gist | xargs short | pbcopy"
+alias pgist="gist -pscP -f"
 alias lsusb="system_profiler SPUSBDataType"
 alias speedtest="/Users/yasyf/Dropbox/Documents/Python\ Play/speedtest.py  --simple"
-alias cat='pygmentize -O style=monokai -f console256 -g'
-alias ccat='/bin/cat'
+alias ccat='pygmentize -O style=monokai -f console256 -g'
+alias cat='/bin/cat'
 alias pbsms="pebble sms 'MacBook Pro'"
 alias pbping="pebble ping"
 alias sudo="sudo "
 alias h="howdoi"
 alias cdmit="cd '~/Dropbox (MIT)/'"
+alias hl="heroku logs"
+alias mongod="mongod --dbpath /tmp/db"

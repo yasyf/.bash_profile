@@ -6,3 +6,8 @@ complete -W "$(echo `cat ~/.ssh/known_hosts | cut -f 1 -d ' ' | sed -e s/,.*//g 
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 complete -W  "$(ls $DIR | grep -v README | grep -v git | tail -n +4 | tr "\n" " ")" bp
+
+
+. $(brew --prefix git)/etc/bash_completion.d/git-completion.bash
+. $(brew --prefix git)/etc/bash_completion.d/git-prompt.sh
+. $(brew --prefix hub)/etc/bash_completion.d/hub.bash_completion.sh
