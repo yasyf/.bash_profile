@@ -11,3 +11,6 @@ done
 
 unset DIR
 unset files
+
+# npm install -g motivate
+motivate format
