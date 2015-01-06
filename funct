@@ -102,3 +102,12 @@ function extract()      # Handy Extract Program
 }
 
 
+function bpython() {
+    if test -n "$VIRTUAL_ENV"
+    then
+        PYTHONPATH="$(python -c 'import sys; print ":".join(sys.path)')" \
+        command bpython "$@"
+    else
+        command bpython "$@"
+    fi
+}
