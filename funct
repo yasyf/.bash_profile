@@ -81,33 +81,85 @@ fi
 
 function extract()      # Handy Extract Program
 {
-    if [ -f $1 ] ; then
-        case $1 in
-            *.tar.bz2)   tar xvjf $1     ;;
-            *.tar.gz)    tar xvzf $1     ;;
-            *.bz2)       bunzip2 $1      ;;
-            *.rar)       unrar x $1      ;;
-            *.gz)        gunzip $1       ;;
-            *.tar)       tar xvf $1      ;;
-            *.tbz2)      tar xvjf $1     ;;
-            *.tgz)       tar xvzf $1     ;;
-            *.zip)       unzip $1        ;;
-            *.Z)         uncompress $1   ;;
-            *.7z)        7z x $1         ;;
-            *)           echo "'$1' cannot be extracted via >extract<" ;;
-        esac
-    else
-        echo "'$1' is not a valid file!"
-    fi
+		if [ -f $1 ] ; then
+				case $1 in
+						*.tar.bz2)   tar xvjf $1     ;;
+						*.tar.gz)    tar xvzf $1     ;;
+						*.bz2)       bunzip2 $1      ;;
+						*.rar)       unrar x $1      ;;
+						*.gz)        gunzip $1       ;;
+						*.tar)       tar xvf $1      ;;
+						*.tbz2)      tar xvjf $1     ;;
+						*.tgz)       tar xvzf $1     ;;
+						*.zip)       unzip $1        ;;
+						*.Z)         uncompress $1   ;;
+						*.7z)        7z x $1         ;;
+						*)           echo "'$1' cannot be extracted via >extract<" ;;
+				esac
+		else
+				echo "'$1' is not a valid file!"
+		fi
 }
 
 
 function bpython() {
-    if test -n "$VIRTUAL_ENV"
-    then
-        PYTHONPATH="$(python -c 'import sys; print ":".join(sys.path)')" \
-        command bpython "$@"
+		if test -n "$VIRTUAL_ENV"
+		then
+				PYTHONPATH="$(python -c 'import sys; print ":".join(sys.path)')" \
+				command bpython "$@"
+		else
+				command bpython "$@"
+		fi
+}
+
+function setup6172() {
+	PWD=$(pwd)
+	DIR_NAME=$(basename "$PWD")
+	CONFIG="/tmp/6172_config/$DIR_NAME"
+	HOST='mit'
+	EMAIL='yasyf@mit.edu'
+	TARGET="Documents/6.172/$DIR_NAME"
+
+	git config user.email "$EMAIL"
+
+	if [ $(ps aux | grep lsyncd | grep $DIR_NAME | wc -l) -eq 0 ]; then
+		mkdir -p $(dirname "$CONFIG")
+		cat <<- EOF > "$CONFIG"
+			sync {
+				default.rsync,
+				rsync = {
+					binary='/usr/local/bin/rsync',
+					archive=true,
+					compress=true,
+					cvs_exclude=true,
+				},
+				exclude={ '.git', '*.o', '*.gc*' },
+				source='$PWD',
+				target='$HOST:$TARGET',
+				delay=1,
+			}
+		EOF
+		sudo lsyncd $CONFIG
+	fi
+
+	ssh $HOST -t "cd $TARGET; bash -l"
+}
+
+function monitor_lab() {
+	fswatch -l 1 -0 "$1" | xargs -0 -n 1 -I {} run_6034_tests
+}
+
+function mount_mit() {
+	DIR="$HOME/mnt/mit/$1"
+	mkdir -p $DIR
+	sshfs "mit:$1" $DIR -o reconnect,ServerAliveInterval=5,ServerAliveCountMax=2
+	cd $DIR
+}
+
+function frameworkpython {
+    if [[ ! -z "$VIRTUAL_ENV" ]]; then
+        PYTHONHOME=$VIRTUAL_ENV /usr/local/bin/python "$@"
     else
-        command bpython "$@"
+        /usr/local/bin/python "$@"
     fi
 }

@@ -7,14 +7,14 @@ alias ls='ls -Ga'
 alias push="git push -u origin master"
 alias hpush="git push heroku master"
 alias commit="git commit -a -m "
-alias http='python -m SimpleHTTPServer'
+alias https='python -m SimpleHTTPServer'
 alias img='sips'
 alias ts2dvd="mkisofs -f -dvd-video -udf -V DVD_VIDEO -o ~/Desktop/DVD_VIDEO.iso"
 alias s="subl"
 alias pf="open ./ -a Path\ Finder"
 alias f="open ./ -a Finder"
 alias vpn="ssh root@vpn.yasyf.com"
-alias bpf="cd /Users/yasyf/Dropbox/Documents/bash/"
+alias bpf="cd ~/Dropbox/Documents/bash/"
 alias grep='grep --color=auto'
 alias ..="cd .."
 alias whois="whois -h whois-servers.net"
@@ -27,13 +27,23 @@ alias checkgit="find ~ -type d -name .git | while read gitfolder;do echo $gitfol
 alias rand="uuidgen"
 alias pgist="gist -pscP -f"
 alias lsusb="system_profiler SPUSBDataType"
-alias speedtest="/Users/yasyf/Dropbox/Documents/Python\ Play/speedtest.py  --simple"
+alias speedtest="~/Dropbox/Documents/Python\ Play/speedtest.py  --simple"
 alias ccat='pygmentize -O style=monokai -f console256 -g'
 alias cat='/bin/cat'
 alias pbsms="pebble sms 'MacBook Pro'"
 alias pbping="pebble ping"
 alias sudo="sudo "
-alias h="howdoi"
+alias h="heroku"
 alias cdmit="cd '~/Dropbox (MIT)/'"
 alias hl="heroku logs"
-alias mongod="mongod --dbpath /tmp/db"
+alias mongod="mkdir -p /tmp/db && mongod --dbpath /tmp/db"
+alias fuck='$(thefuck $(fc -ln -1))'
+alias m='make'
+alias be='bundle exec'
+alias send='/Users/yasyf/Dropbox/Documents/send_message/send_message.rb'
+alias npm-exec='PATH=$(npm bin):$PATH'
+
+alias foxtrot-impersonate="~/Dropbox/Documents/spark/script/util/impersonate.py"
+alias foxtrot-web="foreman run ~/Dropbox/Documents/spark/script/web.sh"
+alias foxtrot-worker="foreman run ~/Dropbox/Documents/spark/script/worker.sh"
+alias foxtrot-augmenter="foreman run ~/Dropbox/Documents/spark/script/augmenter.sh"
